@@ -42,6 +42,8 @@ curl http://127.0.0.1:9010/v1/audio/speech \
 
 为 `voice_clone` 模型配置 `reference_audio` 和完全匹配的 `reference_text` 后，调用接口时无需每次上传参考音频；请求里上传的音频和 `ref_text` 会优先覆盖默认配置。参考音频必须是你拥有或已获得明确授权使用的声音。
 
+只上传参考音频、不提供对应文字也可以生成：服务会自动使用 Qwen 的纯音色向量模式。这种方式最省事，但提供与录音完全一致的参考文本通常会得到更稳定的语音内容和音色。
+
 ```yaml
 voice-clone:
   source: "Qwen/Qwen3-TTS-12Hz-1.7B-Base"

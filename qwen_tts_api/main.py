@@ -133,8 +133,6 @@ def create_app(settings: Settings) -> FastAPI:
             raise HTTPException(400, "This endpoint requires a voice_clone model")
         configured_audio = settings.reference_audio_path(entry)
         effective_ref_text = ref_text or entry.get("reference_text")
-        if not effective_ref_text:
-            raise HTTPException(400, "ref_text is required unless reference_text is configured for this model")
 
         temp: Path | None = None
         if reference_audio:
@@ -148,7 +146,14 @@ def create_app(settings: Settings) -> FastAPI:
             raise HTTPException(400, "reference_audio is required unless a valid reference_audio is configured for this model")
         try:
             async with semaphore:
-                wavs, sample_rate = await asyncio.to_thread(loaded.generate_voice_clone, text=text, language=language, ref_audio=str(effective_audio), ref_text=effective_ref_text)
+                wavs, sample_rate = await asyncio.to_thread(
+                    loaded.generate_voice_clone,
+                    text=text,
+                    language=language,
+                    ref_audio=str(effective_audio),
+                    ref_text=effective_ref_text,
+                    x_vector_only_mode=effective_ref_text is None,
+                )
         finally:
             if temp:
                 temp.unlink(missing_ok=True)
