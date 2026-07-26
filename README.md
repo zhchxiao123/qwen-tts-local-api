@@ -20,7 +20,7 @@ cd qwen-tts-api
 python3.12 -m venv .venv
 source .venv/bin/activate
 pip install -U pip
-pip install -e .
+pip install .
 cp config.example.yaml config.yaml
 qwen-tts-api --config config.yaml
 ```
