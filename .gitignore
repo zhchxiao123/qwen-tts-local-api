@@ -1,0 +1,14 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.egg-info/
+.DS_Store
+config.yaml
+
+# Local model and voice material must never be committed.
+references/
+test_reference.wav
+qwen_clone_test.wav
+qwen_clone_api_test.wav
+qwen_clone_config_test.wav

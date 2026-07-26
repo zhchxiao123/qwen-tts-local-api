@@ -1,0 +1,27 @@
+network:
+  host: "127.0.0.1" # 改成 0.0.0.0 才允许局域网访问
+  port: 9010
+  cors_origins: ["http://localhost", "http://127.0.0.1"]
+
+security:
+  api_key: "" # 局域网部署时请设置随机长密钥
+
+runtime:
+  device: "auto" # auto | mps | cpu
+  dtype: "float16" # MPS 出错时可尝试 float32
+  max_concurrent_requests: 1
+
+models:
+  default: "custom-voice"
+  entries:
+    custom-voice:
+      source: "Qwen/Qwen3-TTS-12Hz-1.7B-CustomVoice"
+      mode: "custom_voice"
+    # voice-clone:
+    #   source: "Qwen/Qwen3-TTS-12Hz-1.7B-Base"
+    #   mode: "voice_clone"
+    #   reference_audio: "./references/default.wav"
+    #   reference_text: "这段文字必须与默认参考音频的实际内容一致。"
+    # voice-design:
+    #   source: "Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign"
+    #   mode: "voice_design"

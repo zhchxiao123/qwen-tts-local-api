@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "qwen-tts-local-api"
+version = "0.1.0"
+description = "Configurable local Qwen3-TTS API for Apple Silicon"
+requires-python = ">=3.11,<3.13"
+dependencies = [
+  "fastapi>=0.115",
+  "uvicorn[standard]>=0.30",
+  "qwen-tts",
+  "PyYAML>=6.0",
+  "soundfile>=0.12",
+  "python-multipart>=0.0.9",
+]
+
+[project.scripts]
+qwen-tts-api = "qwen_tts_api.main:run"
+
+[tool.setuptools.packages.find]
+include = ["qwen_tts_api*"]
